@@ -16,29 +16,29 @@ namespace VehicleService.Services
         private readonly ILogger<RedisCacheService> _logger;
         private readonly bool _isRedisAvailable;
 
-        // public RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheService> logger)
-        // {
-        //     _logger = logger;
-        //     try
-        //     {
-        //         _redis = redis;
-        //         _database = redis.GetDatabase();
-        //         _isRedisAvailable = redis.IsConnected;
-        //         if (_isRedisAvailable)
-        //         {
-        //             _logger.LogInformation("Redis cache is available and connected");
-        //         }
-        //         else
-        //         {
-        //             _logger.LogWarning("Redis is not connected. Falling back to database only.");
-        //         }
-        //     }
-        //     catch (Exception ex)
-        //     {
-        //         _logger.LogWarning(ex, "Redis initialization failed. Falling back to database only.");
-        //         _isRedisAvailable = false;
-        //     }
-        // }
+        public RedisCacheService(IConnectionMultiplexer redis, ILogger<RedisCacheService> logger)
+        {
+            _logger = logger;
+            try
+            {
+                _redis = redis;
+                _database = redis.GetDatabase();
+                _isRedisAvailable = redis.IsConnected;
+                if (_isRedisAvailable)
+                {
+                    _logger.LogInformation("Redis cache is available and connected");
+                }
+                else
+                {
+                    _logger.LogWarning("Redis is not connected. Falling back to database only.");
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogWarning(ex, "Redis initialization failed. Falling back to database only.");
+                _isRedisAvailable = false;
+            }
+        }
         public async Task<bool> SetDataAsync<T>(string key, T value, TimeSpan? expiration = null)
         {
             if (!_isRedisAvailable || _database == null)
