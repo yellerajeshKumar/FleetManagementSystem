@@ -36,6 +36,7 @@ namespace AuthService.Services
              try
             {
                 // Check if user already exists
+                
                 if (await _context.Users.AnyAsync(u => u.Username == username || u.Email == email))
                 {
                     return null;
