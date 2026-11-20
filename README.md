@@ -1,5 +1,4 @@
-# fleetmanagement
-Fleet Management Microservices
+# Fleet Management Microservices
 
 A microservices-based backend system for managing fleet operations such as vehicles, drivers, trips and notifications.
 
