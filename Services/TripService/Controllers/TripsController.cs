@@ -129,18 +129,28 @@ namespace TripService.Controllers
                 var createdTrip = await _repository.CreateTripAsync(trip);
                 var tripDto = MapToDto(createdTrip);
 
-                // Publish event to Kafka for AlertService
-                await _kafkaProducer.ProduceAsync("trip-notifications", new 
-                { 
-                    Event = "TripStarted", 
-                    TripId = tripDto.TripID,
-                    DriverId = tripDto.DriverID,
-                    VehicleId = tripDto.VehicleID,
-                    StartLocation = tripDto.StartLocation,
-                    StartTime = tripDto.StartTime,
-                    Timestamp = DateTime.UtcNow,
-                    Message = $"Trip started from {tripDto.StartLocation}"
-                });
+                // Kafka is an optional notification channel. A Kafka outage must not
+                // turn an already-persisted trip creation into an HTTP 500.
+                try
+                {
+                    await _kafkaProducer.ProduceAsync("trip-notifications", new
+                    {
+                        Event = "TripStarted",
+                        TripId = tripDto.TripID,
+                        DriverId = tripDto.DriverID,
+                        VehicleId = tripDto.VehicleID,
+                        StartLocation = tripDto.StartLocation,
+                        StartTime = tripDto.StartTime,
+                        Timestamp = DateTime.UtcNow,
+                        Message = $"Trip started from {tripDto.StartLocation}"
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex,
+                        "Trip {TripId} was created, but the Kafka notification could not be delivered",
+                        tripDto.TripID);
+                }
 
                 return CreatedAtAction(nameof(GetTrip), new { id = createdTrip.TripID }, tripDto);
             }
@@ -177,18 +187,28 @@ namespace TripService.Controllers
 
                 var tripDto = MapToDto(updatedTrip);
 
-                // Publish event to Kafka for AlertService
-                await _kafkaProducer.ProduceAsync("trip-notifications", new 
-                { 
-                    Event = "TripCompleted", 
-                    TripId = tripDto.TripID,
-                    DriverId = tripDto.DriverID,
-                    VehicleId = tripDto.VehicleID,
-                    DistanceTraveled = tripDto.DistanceTraveled,
-                    EndTime = tripDto.EndTime,
-                    Timestamp = DateTime.UtcNow,
-                    Message = $"Trip completed. Distance: {tripDto.DistanceTraveled} km"
-                });
+                // Kafka is an optional notification channel. A Kafka outage must not
+                // turn an already-persisted trip update into an HTTP 500.
+                try
+                {
+                    await _kafkaProducer.ProduceAsync("trip-notifications", new
+                    {
+                        Event = "TripCompleted",
+                        TripId = tripDto.TripID,
+                        DriverId = tripDto.DriverID,
+                        VehicleId = tripDto.VehicleID,
+                        DistanceTraveled = tripDto.DistanceTraveled,
+                        EndTime = tripDto.EndTime,
+                        Timestamp = DateTime.UtcNow,
+                        Message = $"Trip completed. Distance: {tripDto.DistanceTraveled} km"
+                    });
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogWarning(ex,
+                        "Trip {TripId} was completed, but the Kafka notification could not be delivered",
+                        tripDto.TripID);
+                }
 
                 return Ok(tripDto);
             }

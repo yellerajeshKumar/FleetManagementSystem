@@ -47,7 +47,7 @@ builder.Services.AddSwaggerGen(options =>
 });
 // Register background services for message consumers
 builder.Services.AddHostedService<RabbitMQConsumerService>();
-//builder.Services.AddHostedService<KafkaConsumerService>();
+builder.Services.AddHostedService<KafkaConsumerService>();
 // Configure SQLite Database
 builder.Services.AddDbContext<AlertDbContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("DefaultConnection") ?? "Data Source=alerts.db"));
