@@ -1,0 +1,202 @@
+{
+  "Routes": [
+    {
+      "DownstreamPathTemplate": "/api/auth/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5276
+        }
+      ],
+      "UpstreamPathTemplate": "/auth-service/api/auth/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "SwaggerKey": "auth"
+    },
+     {
+      "DownstreamPathTemplate": "/api/Vehicles",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "UpstreamPathTemplate": "/vehicle-service/api/vehicles",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "vehicle"
+    },
+    {
+      "DownstreamPathTemplate": "/api/Vehicles/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5055
+        }
+      ],
+      "UpstreamPathTemplate": "/vehicle-service/api/vehicles/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "vehicle"
+    },
+     {
+      "DownstreamPathTemplate": "/api/drivers",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5013
+        }
+      ],
+      "UpstreamPathTemplate": "/driver-service/api/drivers",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "driver"
+    },
+    {
+      "DownstreamPathTemplate": "/api/drivers/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5013
+        }
+      ],
+      "UpstreamPathTemplate": "/driver-service/api/drivers/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "driver"
+    },
+    {
+      "DownstreamPathTemplate": "/api/trips",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5130
+        }
+      ],
+      "UpstreamPathTemplate": "/trip-service/api/trips",
+      "UpstreamHttpMethod": [ "GET", "POST" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "trip"
+    },
+    {
+      "DownstreamPathTemplate": "/api/trips/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5130
+        }
+      ],
+      "UpstreamPathTemplate": "/trip-service/api/trips/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "trip"
+    },
+    {
+      "DownstreamPathTemplate": "/api/notifications",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5033
+        }
+      ],
+      "UpstreamPathTemplate": "/alert-service/api/notifications",
+      "UpstreamHttpMethod": [ "GET" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "alert"
+    },
+    {
+      "DownstreamPathTemplate": "/api/notifications/{everything}",
+      "DownstreamScheme": "http",
+      "DownstreamHostAndPorts": [
+        {
+          "Host": "localhost",
+          "Port": 5033
+        }
+      ],
+      "UpstreamPathTemplate": "/alert-service/api/notifications/{everything}",
+      "UpstreamHttpMethod": [ "GET", "POST", "PUT", "DELETE" ],
+      "AuthenticationOptions": {
+        "AuthenticationProviderKey": "Bearer"
+      },
+      "SwaggerKey": "alert"
+    }
+   
+  ],
+   "GlobalConfiguration": {
+    "BaseUrl": "http://localhost:5000"
+  },
+  "SwaggerEndPoints": [
+    {
+      "Key": "auth",
+      "Config": [
+        {
+          "Name": "Auth Service",
+          "Version": "v1",
+          "Url": "http://localhost:5276/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "vehicle",
+      "Config": [
+        {
+          "Name": "Vehicle Service",
+          "Version": "v1",
+          "Url": "http://localhost:5055/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "driver",
+      "Config": [
+        {
+          "Name": "Driver Service",
+          "Version": "v1",
+          "Url": "http://localhost:5013/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "trip",
+      "Config": [
+        {
+          "Name": "Trip Service",
+          "Version": "v1",
+          "Url": "http://localhost:5130/swagger/v1/swagger.json"
+        }
+      ]
+    },
+    {
+      "Key": "alert",
+      "Config": [
+        {
+          "Name": "Alert Service",
+          "Version": "v1",
+          "Url": "http://localhost:5033/swagger/v1/swagger.json"
+        }
+      ]
+    }
+  ]
+
+}

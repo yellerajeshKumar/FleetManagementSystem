@@ -10,6 +10,7 @@ namespace AlertService.Data
         }
 
         public DbSet<NotificationMessage> NotificationMessages { get; set; }
+        public DbSet<DemoSagaInstance> DemoSagaInstances { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -25,6 +26,16 @@ namespace AlertService.Data
                 entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
                 entity.HasIndex(e => e.ReceivedAt);
                 entity.HasIndex(e => e.Source);
+            });
+            modelBuilder.Entity<DemoSagaInstance>(entity =>
+            {
+                entity.HasKey(e => e.SagaId);
+                entity.Property(e => e.Status).IsRequired().HasMaxLength(50);
+                entity.Property(e => e.CurrentStep).IsRequired();
+                entity.Property(e => e.StartLocation).IsRequired().HasMaxLength(200);
+                entity.Property(e => e.EndLocation).IsRequired().HasMaxLength(200);
+                entity.HasIndex(e => e.Status);
+                entity.HasIndex(e => e.CreatedAt);
             });
         }
     }
