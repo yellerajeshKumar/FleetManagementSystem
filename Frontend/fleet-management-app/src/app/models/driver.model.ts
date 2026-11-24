@@ -11,6 +11,7 @@ export interface Driver {
   hireDate: Date;
   createdAt: Date;
   updatedAt: Date;
+  name: string;
 }
 
 export interface CreateDriverRequest {

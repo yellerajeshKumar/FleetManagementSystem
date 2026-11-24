@@ -13,6 +13,8 @@ export interface Trip {
   fuelConsumed: number;
   createdAt: Date;
   updatedAt: Date;
+  model: string;
+  name: string;
 }
 
 export interface CreateTripRequest {

@@ -11,8 +11,8 @@ import { NotificationService, Notification, NotificationStats } from '../../serv
         <h2>Notifications & Alerts</h2>
         <div class="filters">
           <button class="btn btn-sm" [class.btn-primary]="selectedSource === 'all'" (click)="filterBySource('all')">All</button>
-          <button class="btn btn-sm" [class.btn-primary]="selectedSource === 'kafka'" (click)="filterBySource('kafka')">Trips (Kafka)</button>
-          <button class="btn btn-sm" [class.btn-primary]="selectedSource === 'rabbitmq'" (click)="filterBySource('rabbitmq')">Drivers (RabbitMQ)</button>
+          <button class="btn btn-sm" [class.btn-primary]="selectedSource === 'kafka'" (click)="filterBySource('Kafka')">Trips (Kafka)</button>
+          <button class="btn btn-sm" [class.btn-primary]="selectedSource === 'rabbitmq'" (click)="filterBySource('RabbitMQ')">Drivers (RabbitMQ)</button>
           <button class="btn btn-sm btn-secondary" (click)="loadNotifications()">🔄 Refresh</button>
         </div>
       </div>

@@ -15,7 +15,7 @@ import { forkJoin } from 'rxjs';
       <!-- Top Navigation Bar -->
       <nav class="navbar navbar-expand-lg navbar-dark bg-gradient sticky-top">
         <div class="container-fluid">
-          <a class="navbar-brand d-flex align-items-center" href="#">
+          <a class="navbar-brand d-flex align-items-center" routerLink="/">
             <i class="bi bi-truck fs-3 me-2"></i>
             <span class="fw-bold">Fleet Management</span>
           </a>
@@ -42,7 +42,7 @@ import { forkJoin } from 'rxjs';
           <div class="p-3">
             <h6 class="text-muted text-uppercase small fw-bold mb-3">Navigation</h6>
             <nav class="nav flex-column">
-              <a routerLink="/dashboard" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
+              <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{exact: true}" 
                  class="nav-link d-flex align-items-center">
                 <i class="bi bi-speedometer2 me-2"></i>
                 <span>Dashboard</span>
@@ -275,7 +275,6 @@ import { forkJoin } from 'rxjs';
 })
 export class DashboardComponent implements OnInit {
   username = '';
-  isHomePage = true;
   stats = {
     totalVehicles: 0,
     activeVehicles: 0,
@@ -293,10 +292,10 @@ export class DashboardComponent implements OnInit {
   ) {
     const user = this.authService.currentUserValue;
     this.username = user?.username || 'User';
+  }
 
-    this.router.events.subscribe(() => {
-      this.isHomePage = this.router.url === '/dashboard';
-    });
+  get isHomePage(): boolean {
+    return this.router.url === '/' || this.router.url === '/dashboard';
   }
 
   ngOnInit(): void {

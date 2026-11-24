@@ -39,7 +39,7 @@ import { Driver } from '../../models/driver.model';
                 <select class="form-control" formControlName="driverID">
                   <option value="">Select Driver</option>
                   @for (driver of drivers; track driver.id) {
-                    <option [value]="driver.driverID">{{ driver.id }}</option>
+                    <option [value]="driver.driverID">{{ driver.name }}</option>
                   }
                 </select>
               </div>
@@ -85,6 +85,14 @@ import { Driver } from '../../models/driver.model';
                 </div>
                 <div class="detail-item">
                   <strong>Driver ID:</strong> {{ trip.driverID.substring(0, 8) }}...
+                </div>
+              </div>
+              <div class="detail-row">
+                <div class="detail-item">
+                  <strong>Vehicle Name:</strong> {{ trip.model || 'N/A'}}
+                </div>
+                <div class="detail-item">
+                  <strong>Driver Name:</strong> {{ trip.name || 'N/A' }}
                 </div>
               </div>
               <div class="detail-row">
